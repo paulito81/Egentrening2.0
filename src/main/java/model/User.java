@@ -10,22 +10,18 @@ import javax.validation.constraints.Pattern;
  */
 //@H2DAOQualifier
 @Entity(name = "User")
-
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @NotNull @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
-    @Column(name = "email")
     private String email;
     @NotNull
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
-    @Column(name = "password")
     private String password;
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "")
     private Type workType;
 
     public User(int id, String email, String password, Type workType) {
