@@ -12,6 +12,7 @@ import java.util.Optional;
 /**
  * Created by Paul on 21.10.2015.
  */
+
 public class UserServiceArray {
     @ArrayListQualifier
     final ArrayUserDAO arrayUserDAO;

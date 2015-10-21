@@ -3,7 +3,6 @@ import domain.UserServiceH2;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
-import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
@@ -12,10 +11,9 @@ import javax.inject.Inject;
  */
 public class Main {
     @Inject
-    @Default
     private UserServiceArray serviceArray;
 
-    @Inject @Default
+    @Inject
     private UserServiceH2 serviceH2;
 
     public void callService() {

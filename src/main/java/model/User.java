@@ -9,19 +9,30 @@ import javax.validation.constraints.Pattern;
  * Created by Paul on 21.10.2015.
  */
 //@H2DAOQualifier
-@Entity(name = "User")
+@Entity
+@NamedQueries(value = {
+        @NamedQuery(name = "emailQuery", query = "SELECT user FROM User user WHERE user.email = 'ola@yahoo.no'"),
+        @NamedQuery(name = "idQuery", query = "SELECT user FROM User user WHERE user.id = 2"),
+        @NamedQuery(name = "passwordQuery", query = "SELECT user FROM User user WHERE user.password like :password"),
+        @NamedQuery(name = "deleteUserQuery", query = "DELETE FROM User WHERE User.id = 2")
+
+})
+@NamedNativeQuery(name = "workType", query = "SELECT * FROM User WHERE worktype=?", resultClass = User.class)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @NotNull @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
+    @Column(name = "email")
     private String email;
     @NotNull
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
+    @Column(name = "password")
     private String password;
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "worktype")
     private Type workType;
 
     public User(int id, String email, String password, Type workType) {
