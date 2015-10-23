@@ -1,8 +1,7 @@
-package domain;
+package console;
 
 import infrastructure.ArrayListQualifier;
 import infrastructure.ArrayUserDAO;
-import model.Display;
 import model.Type;
 import model.User;
 
@@ -13,7 +12,7 @@ import java.util.Optional;
  * Created by Paul on 21.10.2015.
  */
 
-public class UserServiceArray {
+public class UserArrayTester {
     @ArrayListQualifier
     final ArrayUserDAO arrayUserDAO;
 
@@ -21,7 +20,7 @@ public class UserServiceArray {
     private Display display = new Display();
 
 
-    UserServiceArray() {
+    UserArrayTester() {
         display.createHeader();
         arrayUserDAO = new ArrayUserDAO();
     }
@@ -39,7 +38,6 @@ public class UserServiceArray {
         updateUser(4, "erik@yahoo.no", "passord4", Type.STUDENT);
         deleteAUser(4);
         getAllUsers();
-        deleteArrayList();
         System.out.println("---------------------------------------------------------------------\n");
 
     }
@@ -96,11 +94,6 @@ public class UserServiceArray {
 
     public List<User> getAllUsers() {
         return arrayUserDAO.getAllUsers();
-    }
-
-    public void deleteArrayList() {
-        arrayUserDAO.deleteArray();
-        display.deleteArray("Listen ble slettet");
     }
 
     public boolean deleteAUser(int id) {

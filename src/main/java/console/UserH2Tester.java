@@ -1,8 +1,7 @@
-package domain;
+package console;
 
 import infrastructure.H2DAOQualifier;
 import infrastructure.H2UserDAO;
-import model.Display;
 import model.Type;
 import model.User;
 
@@ -12,14 +11,14 @@ import java.util.Optional;
 /**
  * Created by Paul on 21.10.2015.
  */
-public class UserServiceH2 {
+public class UserH2Tester {
     //PRINT OUT
     private Display display = new Display();
 
     @H2DAOQualifier
     H2UserDAO h2UserDAO;
 
-    UserServiceH2(){
+    UserH2Tester(){
         h2UserDAO = new H2UserDAO();
     }
 
