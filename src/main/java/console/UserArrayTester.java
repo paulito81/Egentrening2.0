@@ -2,9 +2,11 @@ package console;
 
 import infrastructure.ArrayListQualifier;
 import infrastructure.ArrayUserDAO;
+import infrastructure.UserDAO;
 import model.Type;
 import model.User;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +15,9 @@ import java.util.Optional;
  */
 
 public class UserArrayTester {
-    @ArrayListQualifier
-    final ArrayUserDAO arrayUserDAO;
+
+    @Inject @ArrayListQualifier
+    private UserDAO userDAO;
 
     //PRINT OUT
     private Display display = new Display();
@@ -22,7 +25,6 @@ public class UserArrayTester {
 
     UserArrayTester() {
         display.createHeader();
-        arrayUserDAO = new ArrayUserDAO();
     }
 
     public void execute() {
@@ -53,14 +55,14 @@ public class UserArrayTester {
 
             User user = new User(id, email, password, workType);
             display.createUser(user);
-            arrayUserDAO.createUser(user);
+            userDAO.createUser(user);
         } else
             System.out.println("Your value is invalid it contains 0!");
     }
 
     public boolean updateUser(User user) {
         if (user != null) {
-            arrayUserDAO.updateUser(user);
+            userDAO.updateUser(user);
             return true;
         }
 
@@ -84,19 +86,19 @@ public class UserArrayTester {
         Optional<User> user;
         if (id != 0) {
 
-            user = arrayUserDAO.getUserById(id);
+            user = userDAO.getUserById(id);
             display.getUserById(user);
 
-            return arrayUserDAO.getUserById(id);
+            return userDAO.getUserById(id);
         } else
             return null;
     }
 
     public List<User> getAllUsers() {
-        return arrayUserDAO.getAllUsers();
+        return userDAO.getAllUsers();
     }
 
     public boolean deleteAUser(int id) {
-        return arrayUserDAO.deleteUser(id);
+        return userDAO.deleteUser(id);
     }
 }

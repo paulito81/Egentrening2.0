@@ -1,4 +1,4 @@
-package domainTest;
+package domain;
 
 /**
  * Created by Paul on 21.10.2015.

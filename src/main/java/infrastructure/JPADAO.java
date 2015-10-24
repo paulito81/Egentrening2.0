@@ -1,6 +1,5 @@
 package infrastructure;
 
-import model.Type;
 import model.User;
 
 import javax.persistence.*;
@@ -12,31 +11,24 @@ import java.util.Optional;
  * Created by Paul on 21.10.2015.
  */
 public class JPADAO implements UserDAO {
+    @PersistenceContext(unitName = "user")
     private EntityManagerFactory factory;
     private EntityManager entityManager;
 
 
     public JPADAO() throws ClassNotFoundException, SQLException{
-
         factory = Persistence.createEntityManagerFactory("user");
         entityManager = factory.createEntityManager();
     }
+
+    JPADAO(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     @Override
-    public boolean createUser(User user) {
-        user = new User();
-        user.setId(2);
-        user.setEmail("ola@yahoo.no");
-        user.setPassword("1234jfdg!KLE");
-        user.setWorkType(Type.STUDENT);
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
+    public User createUser(User user) {
         entityManager.persist(user);
-        transaction.commit();
-
-        TypedQuery<User> query = entityManager.createQuery("SELECT user FROM User user WHERE user.id = 2", User.class);
-        System.out.println("\nPERSISTED OBJECT: " + query.getResultList().get(0));
-
-        return false;
+        return user;
     }
 
     private void close(){
@@ -46,38 +38,30 @@ public class JPADAO implements UserDAO {
 
     @Override
     public boolean updateUser(User user) {
-        TypedQuery<User> query = entityManager.createQuery("SELECT user FROM User user WHERE user.password like :password", User.class);
-        query.setParameter("password", "kflwekf232dSW%");
-        List<User> results = query.getResultList();
-        System.out.println("\nPassword update QUERY 2: ");
-        results.forEach(System.out::println);
+        if(user.getEmail() !=null ) {
+            entityManager.persist(user);
+            return true;
+        }
         return false;
     }
 
     @Override
     public Optional<User> getUserById(int id) {
-        TypedQuery<User> query = entityManager.createQuery("SELECT user FROM User user WHERE user.id = 2", User.class);
-        List<User> results = query.getResultList();
-        System.out.println("\nNAMED QUERY 1: ");
-        results.forEach(System.out::println);
-        return null;
+        return Optional.ofNullable(entityManager.find(User.class, id));
     }
 
     @Override
     public List<User> getAllUsers() {
-        //TODO!!
-        TypedQuery<User> query = entityManager.createQuery("SELECT FROM USER WHERE user.id = 2", User.class);
-        query.setParameter(1, "ola@yahoo.no");
-        List list = query.getResultList();
-        System.out.println("\nGET ALL QUERY: " + list.get(0));
-        return null;
+        TypedQuery<User> query = entityManager.createNamedQuery("User.getAllUsers", User.class);
+        return query.getResultList();
     }
 
     @Override
     public boolean deleteUser(int id) {
-        TypedQuery<User> query = entityManager.createQuery("DELETE FROM User WHERE User.id = 2", User.class);
-        List list = query.getResultList();
-        System.out.println("\nDELETE QUERY: " + list.get(0));
-        return false;
+        TypedQuery<User> query = entityManager.createNamedQuery("User.deleteUser", User.class);
+        query.setParameter("id", id);
+        int rows = query.executeUpdate();
+        return rows == 1;
     }
+
 }

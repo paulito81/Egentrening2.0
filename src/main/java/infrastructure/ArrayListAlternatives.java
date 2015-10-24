@@ -1,24 +1,17 @@
 package infrastructure;
 
 import javax.enterprise.inject.Alternative;
-import javax.inject.Qualifier;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by Paul on 21.10.2015.
+ * Created by Paul on 24.10.2015.
  */
 @Alternative
-@Target({ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface H2DAOQualifier {
-/*
-    String message() default "Invalid user";
+@Target({ElementType.FIELD, ElementType.TYPE, ElementType.METHOD})
 
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
-*/
+public @interface ArrayListAlternatives {
 }

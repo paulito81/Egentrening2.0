@@ -3,7 +3,7 @@ package infrastructure;
 import model.Type;
 import model.User;
 
-import javax.enterprise.inject.Default;
+import javax.annotation.PreDestroy;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Created by Paul on 21.10.2015.
  */
-@Default
+@H2DAOQualifier
 public class H2UserDAO implements UserDAO {
 
     private static Connection connection;
@@ -34,6 +34,7 @@ public class H2UserDAO implements UserDAO {
         }
     }
 
+    @PreDestroy
     public  void closeConnectionToH2() {
         try {
             connection.close();
@@ -44,26 +45,26 @@ public class H2UserDAO implements UserDAO {
 
 
     @Override
-    public synchronized boolean createUser(User user) {
+    public synchronized User createUser(User user) {
 
 
-        String sqlInsert = "INSERT INTO USER VALUES(SEQ_USER.nextval, ?, ?, ?) ";
+        int id = getNextId();
+        String sqlInsert = "INSERT INTO USER VALUES(?, ?, ?, ?) ";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
 
-            preparedStatement.setString(1, user.getEmail());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, user.getWorkType().name());
-
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getWorkType().name());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
 
+            user.setId(id);
+            return user;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
-
-        return true;
 
     }
 
@@ -198,6 +199,19 @@ public class H2UserDAO implements UserDAO {
             throw new IllegalStateException("No table found by the name of... ´" + tableName + "´\nTablename: " + dropTable);
         }
         return false;
+    }
+
+    private int getNextId() {
+        try(PreparedStatement statement = connection.prepareStatement("select SEQ_USER.nextval from DUAL")) {
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        throw new IllegalStateException("Unable to generate new id for User");
     }
 
 }

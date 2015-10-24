@@ -1,4 +1,4 @@
-package domainTest;
+package domain;
 
 import model.Type;
 import model.User;
@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * Created by Paul on 21.10.2015.
  */
-public class UserServiceArrayTest {
+public class UserArrayTesterTest {
     // user tests
     private User user1;
     private User user2;

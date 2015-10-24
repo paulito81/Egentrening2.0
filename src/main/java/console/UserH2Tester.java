@@ -2,9 +2,11 @@ package console;
 
 import infrastructure.H2DAOQualifier;
 import infrastructure.H2UserDAO;
+import infrastructure.UserDAO;
 import model.Type;
 import model.User;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,11 +17,10 @@ public class UserH2Tester {
     //PRINT OUT
     private Display display = new Display();
 
-    @H2DAOQualifier
-    H2UserDAO h2UserDAO;
+    @Inject @H2DAOQualifier
+    private UserDAO userDAO;
 
     UserH2Tester(){
-        h2UserDAO = new H2UserDAO();
     }
 
     public void execute(){
@@ -37,7 +38,6 @@ public class UserH2Tester {
         deleteAUserH2(4);
         getAllUsersH2();
         dropTable("User");
-        closeConnection();
 
     }
 
@@ -51,8 +51,8 @@ public class UserH2Tester {
         if (id != 0 || email != null || password != null || workType != null) {
             User user = new User(id, email, password, workType);
 
-            h2UserDAO.createUser(user);
-            if(!h2UserDAO.getAllUsers().isEmpty()) {
+            userDAO.createUser(user);
+            if(!userDAO.getAllUsers().isEmpty()) {
                 display.createUserH2(user);
             }
 
@@ -65,7 +65,7 @@ public class UserH2Tester {
     public boolean updateUserH2(User user) {
         if (user != null) {
 
-            h2UserDAO.updateUser(user);
+            userDAO.updateUser(user);
             display.updateUserH2(user);
             return true;
         } else
@@ -74,33 +74,29 @@ public class UserH2Tester {
 
     public Optional<User> getUserByIDH2(int id) {
         if (id != 0) {
-            display.getUserByIdH2(h2UserDAO.getUserById(id));
-            return h2UserDAO.getUserById(id);
+            display.getUserByIdH2(userDAO.getUserById(id));
+            return userDAO.getUserById(id);
         } else
             return null;
     }
 
     public List<User> getAllUsersH2() {
 
-        display.getAllUsersH2(h2UserDAO.getAllUsers() );
+        display.getAllUsersH2(userDAO.getAllUsers());
 
-        return h2UserDAO.getAllUsers();
+        return userDAO.getAllUsers();
 
     }
 
     public boolean deleteAUserH2(int id) {
         display.deleteUserH2(id);
-        return id != 0 && h2UserDAO.deleteUser(id);
+        return id != 0 && userDAO.deleteUser(id);
     }
 
     public void dropTable(String tableName) {
 
-        h2UserDAO.dropTable(tableName);
         display.dropTable(tableName);
 
-    }
-    public void closeConnection(){
-        h2UserDAO.closeConnectionToH2();
     }
 
 }

@@ -1,5 +1,7 @@
-import domain.UserServiceArray;
-import domain.UserServiceH2;
+import console.UserArrayTester;
+import console.UserH2Tester;
+import infrastructure.ArrayListQualifier;
+import infrastructure.UserDAO;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
@@ -11,10 +13,10 @@ import javax.inject.Inject;
  */
 public class Main {
     @Inject
-    private UserServiceArray serviceArray;
+    private UserArrayTester serviceArray;
 
     @Inject
-    private UserServiceH2 serviceH2;
+    private UserH2Tester serviceH2;
 
     public void callService() {
         serviceArray.execute();

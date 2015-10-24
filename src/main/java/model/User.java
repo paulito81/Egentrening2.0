@@ -11,29 +11,29 @@ import javax.validation.constraints.Pattern;
 //@H2DAOQualifier
 @Entity
 @NamedQueries(value = {
-        @NamedQuery(name = "emailQuery", query = "SELECT user FROM User user WHERE user.email = 'ola@yahoo.no'"),
-        @NamedQuery(name = "idQuery", query = "SELECT user FROM User user WHERE user.id = 2"),
-        @NamedQuery(name = "passwordQuery", query = "SELECT user FROM User user WHERE user.password like :password"),
-        @NamedQuery(name = "deleteUserQuery", query = "DELETE FROM User WHERE User.id = 2")
-
+        @NamedQuery(name = "User.getAllUsers", query = "select u from User u"),
+        @NamedQuery(name = "User.deleteUser", query = "delete from User u where u.id = :id"),
 })
-@NamedNativeQuery(name = "workType", query = "SELECT * FROM User WHERE worktype=?", resultClass = User.class)
+@SequenceGenerator(name = "User.sequence", sequenceName = "SEQ_USER", initialValue = 50)
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User.sequence")
     private int id;
     @NotNull @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
-    @Column(name = "email")
     private String email;
     @NotNull
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
-    @Column(name = "password")
     private String password;
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "worktype")
     private Type workType;
+
+    public User(String email, String password, Type workType) {
+        this.email = email;
+        this.password = password;
+        this.workType = workType;
+    }
 
     public User(int id, String email, String password, Type workType) {
         this.id = id;
