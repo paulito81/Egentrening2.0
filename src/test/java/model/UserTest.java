@@ -1,5 +1,6 @@
 package model;
 
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,12 +9,17 @@ import org.junit.Test;
  * Created by Paul on 21.10.2015.
  */
 public class UserTest {
+
+    private User user;
+
     @Before
     public void before() throws Exception {
+         user = new User(1, "ola@yahoo.no", "passrod1232!!", Type.STUDENT);
     }
 
     @After
     public void after() throws Exception {
+        user = null;
     }
 
     /**
@@ -21,7 +27,10 @@ public class UserTest {
      */
     @Test
     public void testGetId() throws Exception {
-//TODO: Test goes here...
+//
+            int id = user.getId();
+        System.out.println("Test ID: " + id + " = " + user.getId());
+        Assert.assertEquals(id, 1);
     }
 
     /**
@@ -29,7 +38,11 @@ public class UserTest {
      */
     @Test
     public void testSetId() throws Exception {
-//TODO: Test goes here...
+        int id = 2;
+        System.out.println("TEST 2(ID): Før endring   \t " + user.toString() );
+        user.setId(id);
+        System.out.println("TEST 2(ID): Etter endring \t " + user.toString());
+        Assert.assertTrue(user.getId() == 2);
     }
 
     /**
@@ -37,7 +50,10 @@ public class UserTest {
      */
     @Test
     public void testGetEmail() throws Exception {
-//TODO: Test goes here...
+        String getEmail =    user.getEmail();
+        System.out.println("Test 3: " + getEmail + " = " + user.getEmail());
+        Assert.assertEquals(getEmail, "ola@yahoo.no");
+
     }
 
     /**
@@ -45,7 +61,13 @@ public class UserTest {
      */
     @Test
     public void testSetEmail() throws Exception {
-//TODO: Test goes here...
+        String s = user.getEmail();
+        System.out.println("TEST 4: Før endring av (email): " + user.getEmail());
+        user.setEmail("fredrik@yhaoo.no");
+        System.out.println("TEST 4: Etter endring av (email): " + user.getEmail());
+
+        Assert.assertNotSame(s, user.getEmail());
+
     }
 
     /**
@@ -53,7 +75,12 @@ public class UserTest {
      */
     @Test
     public void testGetPassword() throws Exception {
-//TODO: Test goes here...
+
+        String getPass = user.getPassword();
+        System.out.println("TEST 5: " + getPass + " = " + user.getPassword());
+        Assert.assertEquals(user.getPassword(), "passrod1232!!");
+
+
     }
 
     /**
@@ -61,7 +88,12 @@ public class UserTest {
      */
     @Test
     public void testSetPassword() throws Exception {
-//TODO: Test goes here...
+
+        String s = user.getPassword();
+        System.out.println("TEST 6: before (Password): " + user.getPassword());
+        user.setPassword("fdsfksdk!FERE3432");
+        System.out.println("TEST 6: after (Password): " + user.getPassword());
+        Assert.assertNotSame(s, user.getPassword());
     }
 
     /**
@@ -69,7 +101,11 @@ public class UserTest {
      */
     @Test
     public void testGetWorkType() throws Exception {
-//TODO: Test goes here...
+            Type getWork = user.getWorkType();
+        System.out.println("TEST 7: NotNull (getWork) :" + getWork);
+
+        Assert.assertNotNull(getWork);
+
     }
 
     /**
@@ -77,7 +113,12 @@ public class UserTest {
      */
     @Test
     public void testSetWorkType() throws Exception {
-//TODO: Test goes here...
+        Type setWork = user.getWorkType();
+        System.out.println("TEST 8: Before (setWork): " +setWork);
+        user.setWorkType(Type.TEACHER);
+        System.out.println("TEST 8: After (setWork) " + user.getWorkType());
+        Assert.assertNotSame(setWork, user.getWorkType());
+
     }
 
     /**
@@ -85,6 +126,8 @@ public class UserTest {
      */
     @Test
     public void testToString() throws Exception {
-//TODO: Test goes here...
+            String s = user.toString();
+            System.out.println("TEST 9: NotNull: \t\t" + s);
+            Assert.assertNotNull(s);
     }
 }
