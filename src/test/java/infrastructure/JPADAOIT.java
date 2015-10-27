@@ -11,9 +11,6 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -80,31 +77,22 @@ public class JPADAOIT {
         User user2 = jpadao.createUser(new User("eik@yahoo.no", "rfask21asd!S", Type.TEACHER));
 
         entityManager.getTransaction().commit();
-        List<User> users = jpadao.getAllUsers();
-        System.out.println("TESTING 'size of JPA-TABLE': " + users.size() + " = 2");
-        Assert.assertTrue(users.size() == 2);
+        System.out.println("TESTING 'size of JPA-TABLE': " + jpadao.getAllUsers().size() + " = 2");
+        Assert.assertTrue(jpadao.getAllUsers().size()  == 2);
 
     }
 
     @Test
     public void testDeleteById() {
         entityManager.getTransaction().begin();
-        User user = jpadao.createUser(new User("okkk@yahoo.no", "rfa888sk21asd!S", Type.TEACHER));
-
-        int id = user.getId();
-
-        System.out.println("TEST DELETE BY ID JPA: " + id);
-//        boolean isDeleted = jpadao.deleteUser(1);
-     //   System.out.println(isDeleted);
+        User user = new User("okkk@yahoo.no", "rfa888sk21asd!S", Type.TEACHER);
+        entityManager.persist(user);
+        System.out.println("TEST DELETE BY ID JPA: " + user.getId());
+        boolean isDeleted = jpadao.deleteUser(user.getId());
+        System.out.println(isDeleted);
         entityManager.getTransaction().commit();
-        /*
-        for(User u : users){
-            if(u.getId() != 0 || u.getWorkType() !=null || u.getPassword() !=null || u.getEmail() !=null) {
-                System.out.println("ID: " + u.getId() + "\tEmail: " + u.getEmail() + "\tPassord: " + u.getPassword() + "\tWorktype:" + u.getWorkType());
-            }
-        }
-        */
-       // Assert.assertTrue(isDeleted);
+
+        Assert.assertTrue(isDeleted);
 
         //TODO
 
