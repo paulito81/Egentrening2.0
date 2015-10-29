@@ -58,7 +58,7 @@ public class JPADAO implements UserDAO {
 
     @Override
     public boolean deleteUser(int id) {
-        TypedQuery<User> query = entityManager.createNamedQuery("User.deleteUser", User.class);
+        Query query = entityManager.createNamedQuery("User.deleteUser");
         query.setParameter("id", id);
         int rows = query.executeUpdate();
         return rows == 1;
