@@ -5,8 +5,8 @@
        bean-discovery-mode="all">
 
     <alternatives>
-        <class>infrastructure.ArrayListAlternatives</class>
-        <class>infrastructure.H2DAOAlternatives</class>
+        <class>infrastructure.alternatives.ArrayListAlternatives</class>
+        <class>infrastructure.alternatives.H2DAOAlternatives</class>
 
     </alternatives>
 </beans>

@@ -1,4 +1,4 @@
-package infrastructure;
+package infrastructure.qualifier;
 
 import javax.enterprise.inject.Alternative;
 import javax.validation.Payload;

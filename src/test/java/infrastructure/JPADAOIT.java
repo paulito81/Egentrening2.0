@@ -1,5 +1,6 @@
 package infrastructure;
 
+import infrastructure.user.JPADAO;
 import junit.framework.Assert;
 import model.Type;
 import model.User;
@@ -89,12 +90,9 @@ public class JPADAOIT {
         entityManager.persist(user);
         System.out.println("TEST DELETE BY ID JPA: " + user.getId());
         boolean isDeleted = jpadao.deleteUser(user.getId());
-        System.out.println(isDeleted);
+        System.out.println("Testing delete id in JPA: --> " + isDeleted );
         entityManager.getTransaction().commit();
 
         Assert.assertTrue(isDeleted);
-
-        //TODO
-
     }
 }

@@ -1,5 +1,6 @@
 package infrastructure;
 
+import infrastructure.user.H2UserDAO;
 import model.Type;
 import model.User;
 import org.junit.After;

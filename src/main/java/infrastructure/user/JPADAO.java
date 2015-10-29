@@ -1,4 +1,4 @@
-package infrastructure;
+package infrastructure.user;
 
 import model.User;
 

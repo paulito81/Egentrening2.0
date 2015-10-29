@@ -1,5 +1,6 @@
-package infrastructure;
+package infrastructure.user;
 
+import infrastructure.qualifier.ArrayListQualifier;
 import model.User;
 
 import java.util.ArrayList;

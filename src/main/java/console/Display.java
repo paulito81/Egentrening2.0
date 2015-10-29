@@ -9,35 +9,48 @@ import java.util.Optional;
  * Created by Paul on 21.10.2015.
  */
 public class Display {
-    public void createHeader(){
-        System.out.println("\n\t\t\t\t  ID\tEPOST\t\t\t\tPASSORD\t\t\tJOBBTYPE\n******************************************************************");
+    public String createHeader(){
+        String s = "\n\t\t\t\t  ID\tEPOST\t\t\t\tPASSORD\t\t\tJOBBTYPE\n******************************************************************";
+        System.out.println(s);
+        return s;
     }
 
-    public void createUser(User user){
-
+    public String createUser(User user){
+        String s;
         if(user !=null ) {
+            s = user.toString();
             System.out.format("Opprettet bruker: %d\t\t%s\t\t%s\t\t%s\n", user.getId(), user.getEmail(), user.getPassword(), user.getWorkType());
+            return  s;
         }else
             System.err.println("Feil ingen bruker ble opprette.. ");
+            return "";
     }
 
-    public void updateUser(User user){
-
+    public String updateUser(User user){
+        String s;
         if(user !=null) {
+            s = user.toString();
             System.out.println("Oppdatert bruker " + "ID:" + user.getId() + "\tEpost: " + user.getEmail() + "\tPassord:" + user.getPassword() + "\tJobbtype:" + user.getWorkType());
+            return  s;
         }
         else
             System.err.println("Ingen bruker ble funnet..");
+            return "Ingen bruker ble funnet";
     }
 
-    public void deleteUser(int id){
+    public String deleteUser(int id){
+        String s;
         if(id > 0 ){
+            s = "Bruker slettet med id: " + id;
             System.err.println("Bruker slettet med id: " + id);
+            return s;
         }else
             System.err.println("Ingen bruker ble funnet...");
+            return "Ingen bruker ble funnet..";
     }
 
     public void getAllUsers(List<User> allUsers) {
+
         if (!allUsers.isEmpty() || allUsers.size() > 0) {
             System.out.println("\n[Liste over alle brukere]:\n--------------------------------------------------------------");
             allUsers.forEach((user) -> System.out.format("\t\t\t\t  %d\t\t%s\t\t%s\t\t%s\n", user.getId(), user.getEmail(), user.getPassword(), user.getWorkType()));
@@ -45,12 +58,16 @@ public class Display {
             System.err.println("Listen er tom..");
     }
 
-    public void getUserById(Optional<User> user) {
+    public String getUserById(Optional<User> user) {
+        String s;
         if(user.isPresent()) {
             System.out.println("Funnet en bruker " + "ID:" + user.get().getId() + "\tEpost: " + user.get().getEmail() + "\tPassord:" + user.get().getPassword() + "\tJobbtype:" + user.get().getWorkType() );
+            s = user.toString();
+            return s;
         }
         else
             System.err.println("Bruker ikke funnet!..");
+            return "Bruker ikke funnet!..";
     }
     public void deleteArray(String deleteArray){
         System.err.println(deleteArray);

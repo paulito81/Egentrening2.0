@@ -1,6 +1,6 @@
 package domain;
 
-import infrastructure.UserDAO;
+import infrastructure.user.UserDAO;
 import model.Type;
 import model.User;
 import org.junit.Before;

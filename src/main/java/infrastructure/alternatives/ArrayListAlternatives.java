@@ -1,4 +1,4 @@
-package infrastructure;
+package infrastructure.alternatives;
 
 import javax.enterprise.inject.Alternative;
 import java.lang.annotation.ElementType;
@@ -12,5 +12,6 @@ import java.lang.annotation.Target;
 @Alternative
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.TYPE, ElementType.METHOD})
-public @interface H2DAOAlternatives {
+
+public @interface ArrayListAlternatives {
 }

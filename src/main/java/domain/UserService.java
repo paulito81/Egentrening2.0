@@ -1,6 +1,6 @@
 package domain;
 
-import infrastructure.UserDAO;
+import infrastructure.user.UserDAO;
 import model.User;
 
 /**
@@ -10,10 +10,12 @@ public class UserService {
     private final UserDAO userDAO;
 
     public UserService(UserDAO userDAO) {
+
         this.userDAO = userDAO;
     }
 
     public User getUserById(int i) {
+
         return userDAO.getUserById(i).get();
     }
 }

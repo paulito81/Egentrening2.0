@@ -1,7 +1,7 @@
 package console;
 
-import infrastructure.ArrayListQualifier;
-import infrastructure.UserDAO;
+import infrastructure.qualifier.ArrayListQualifier;
+import infrastructure.user.UserDAO;
 import model.Type;
 import model.User;
 
