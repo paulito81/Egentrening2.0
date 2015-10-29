@@ -1,7 +1,6 @@
 package infrastructure;
 
 import javax.enterprise.inject.Alternative;
-import javax.inject.Qualifier;
 import javax.validation.Payload;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package domain;
+package console;
 
 import model.Type;
 import model.User;

@@ -3,8 +3,6 @@ package domain;
 import infrastructure.UserDAO;
 import model.User;
 
-import java.util.List;
-
 /**
  * Created by Paul on 22.10.2015.
  */

@@ -1,7 +1,5 @@
 import console.UserArrayTester;
 import console.UserH2Tester;
-import infrastructure.ArrayListQualifier;
-import infrastructure.UserDAO;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
