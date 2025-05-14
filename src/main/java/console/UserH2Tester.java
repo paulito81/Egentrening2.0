@@ -1,6 +1,6 @@
 package console;
 
-import infrastructure.qualifier.H2DAOQualifier;
+import infrastructure.Qualifier.H2DAOQualifier;
 import infrastructure.user.UserDAO;
 import model.Type;
 import model.User;

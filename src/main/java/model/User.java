@@ -1,9 +1,10 @@
 package model;
 
-import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 /**
  * Created by Paul on 21.10.2015.
@@ -20,7 +21,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User.sequence")
     private int id;
-    @NotNull @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
+    @NotNull
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     private String email;
     @NotNull
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")

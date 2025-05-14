@@ -1,7 +1,7 @@
 package infrastructure.user;
 
 
-import infrastructure.qualifier.H2DAOQualifier;
+import infrastructure.Qualifier.H2DAOQualifier;
 import model.Type;
 import model.User;
 

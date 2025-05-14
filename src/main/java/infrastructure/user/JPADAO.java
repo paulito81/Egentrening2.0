@@ -21,7 +21,7 @@ public class JPADAO implements UserDAO {
         entityManager = factory.createEntityManager();
     }
 
-    JPADAO(EntityManager entityManager) {
+    public JPADAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
